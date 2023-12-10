@@ -13,7 +13,7 @@
 #include <iostream>
 
 constexpr GLuint GL_MAJOR = 3;
-constexpr GLuint GL_MINOR = 3;
+constexpr GLuint GL_MINOR = 0;
 
 Renderer::Renderer(int width, int height, std::unique_ptr<Camera>&& camera) :
     width(width),
@@ -58,11 +58,9 @@ bool Renderer::initializeSDL() {
         window = SDL_CreateWindow("Model Viewer", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
         if (window == nullptr) {
             std::cout << "Window could not be created!\n";
-        } else {
-            screen = SDL_GetWindowSurface(window);
+            return false;
         }
     }
-
     return true;
 }
 

@@ -36,7 +36,6 @@ class Renderer {
         ~Renderer();
     private:
         SDL_Window* window = nullptr;
-        SDL_Surface* screen = nullptr;
 
         int width;
         int height;

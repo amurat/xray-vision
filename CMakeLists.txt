@@ -20,18 +20,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/build)
 
 # find sdl2 and glew
-find_package(SDL2 REQUIRED)
+add_subdirectory(thirdparty/SDL)
 find_package(GLEW REQUIRED)
 find_package(OpenGL REQUIRED)
 
 # add the include (header) directories for sdl2 and glew
-include_directories(${SDL2_INCLUDE_DIRS})
+include_directories(thirdparty/SDL)
 include_directories(${GLEW_INCLUDE_DIRS})
 include_directories(src include)
+include_directories(thirdparty/glm)
 
 # sld2 has some weird extra whitespace that breaks things?
-string(STRIP ${SDL2_INCLUDE_DIRS} SDL2_INCLUDE_DIRS)
-string(STRIP ${SDL2_LIBRARIES} SDL2_LIBRARIES)
+#string(STRIP ${SDL2_INCLUDE_DIRS} SDL2_INCLUDE_DIRS)
+#string(STRIP ${SDL2_LIBRARIES} SDL2_LIBRARIES)
 
 add_compile_options(-Wall -Wextra -Wpedantic)
 
@@ -61,6 +62,6 @@ add_executable(demo
     ${SOURCES}
 )
 # Link libraries as necessary
-target_link_libraries(demo ${SDL2_LIBRARIES})
+target_link_libraries(demo SDL2::SDL2main SDL2::SDL2-static)
 target_link_libraries(demo ${FREETYPE_LIBRARIES})
-target_link_libraries(demo ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
+target_link_libraries(demo ${OPENGL_LIBRARIES} GLEW::GLEW)
